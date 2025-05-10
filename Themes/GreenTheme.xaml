@@ -1,0 +1,34 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/Styles/Brushes.xaml"/>
+        <ResourceDictionary Source="/Styles/Buttons.xaml"/>
+        <ResourceDictionary Source="/Styles/TextBlocks.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+
+    <!-- 基础属性设置 -->
+    <SolidColorBrush x:Key="WindowBackgroundBrush" Color="{StaticResource Green.Background}"/>
+    <SolidColorBrush x:Key="WindowForegroundBrush" Color="{StaticResource Green.Foreground}"/>
+    <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource Green.Primary}"/>
+    <SolidColorBrush x:Key="SecondaryBrush" Color="{StaticResource Green.Secondary}"/>
+    <SolidColorBrush x:Key="AccentBrush" Color="{StaticResource Green.Accent}"/>
+    <SolidColorBrush x:Key="BorderBrush" Color="{StaticResource Green.Border}"/>
+    
+    <!-- 主题特殊样式设置 -->
+    <Style x:Key="ThemeWindowStyle" TargetType="Window">
+        <Setter Property="Background" Value="{StaticResource WindowBackgroundBrush}"/>
+        <Setter Property="Foreground" Value="{StaticResource WindowForegroundBrush}"/>
+    </Style>
+    
+    <!-- 主题特殊控件样式 -->
+    <Style x:Key="ThemeGridStyle" TargetType="Grid">
+        <Setter Property="Background" Value="{StaticResource WindowBackgroundBrush}"/>
+    </Style>
+    
+    <Style x:Key="ThemeBorderStyle" TargetType="Border">
+        <Setter Property="Background" Value="{StaticResource WindowBackgroundBrush}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
+    </Style>
+</ResourceDictionary> 

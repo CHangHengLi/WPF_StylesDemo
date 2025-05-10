@@ -1,0 +1,108 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- 蓝色主题 -->
+    <Color x:Key="Blue.Primary">#3498db</Color>
+    <Color x:Key="Blue.Secondary">#2980b9</Color>
+    <Color x:Key="Blue.Background">#ecf0f1</Color>
+    <Color x:Key="Blue.Foreground">#2c3e50</Color>
+    <Color x:Key="Blue.Border">#bdc3c7</Color>
+    <Color x:Key="Blue.Accent">#9b59b6</Color>
+    <Color x:Key="Blue.Success">#2ecc71</Color>
+    <Color x:Key="Blue.Warning">#f39c12</Color>
+    <Color x:Key="Blue.Error">#e74c3c</Color>
+
+    <!-- 绿色主题 -->
+    <Color x:Key="Green.Primary">#27ae60</Color>
+    <Color x:Key="Green.Secondary">#2ecc71</Color>
+    <Color x:Key="Green.Background">#f5f5f5</Color>
+    <Color x:Key="Green.Foreground">#333333</Color>
+    <Color x:Key="Green.Border">#d0d0d0</Color>
+    <Color x:Key="Green.Accent">#8e44ad</Color>
+    <Color x:Key="Green.Success">#16a085</Color>
+    <Color x:Key="Green.Warning">#f1c40f</Color>
+    <Color x:Key="Green.Error">#c0392b</Color>
+
+    <!-- 红色主题 -->
+    <Color x:Key="Red.Primary">#e74c3c</Color>
+    <Color x:Key="Red.Secondary">#c0392b</Color>
+    <Color x:Key="Red.Background">#f9f9f9</Color>
+    <Color x:Key="Red.Foreground">#333333</Color>
+    <Color x:Key="Red.Border">#d0d0d0</Color>
+    <Color x:Key="Red.Accent">#8e44ad</Color>
+    <Color x:Key="Red.Success">#27ae60</Color>
+    <Color x:Key="Red.Warning">#f39c12</Color>
+    <Color x:Key="Red.Error">#c0392b</Color>
+
+    <!-- 深色主题 -->
+    <Color x:Key="Dark.Primary">#34495e</Color>
+    <Color x:Key="Dark.Secondary">#2c3e50</Color>
+    <Color x:Key="Dark.Background">#1a1a1a</Color>
+    <Color x:Key="Dark.Foreground">#ecf0f1</Color>
+    <Color x:Key="Dark.Border">#444444</Color>
+    <Color x:Key="Dark.Accent">#9b59b6</Color>
+    <Color x:Key="Dark.Success">#2ecc71</Color>
+    <Color x:Key="Dark.Warning">#f39c12</Color>
+    <Color x:Key="Dark.Error">#e74c3c</Color>
+
+    <!-- 通用颜色 -->
+    <Color x:Key="Black">#000000</Color>
+    <Color x:Key="White">#FFFFFF</Color>
+    <Color x:Key="Transparent">Transparent</Color>
+    <Color x:Key="LightGray">#f0f0f0</Color>
+    <Color x:Key="Gray">#aaaaaa</Color>
+    <Color x:Key="DarkGray">#444444</Color>
+
+    <!-- 蓝色主题画刷 -->
+    <SolidColorBrush x:Key="Blue.PrimaryBrush" Color="{StaticResource Blue.Primary}"/>
+    <SolidColorBrush x:Key="Blue.SecondaryBrush" Color="{StaticResource Blue.Secondary}"/>
+    <SolidColorBrush x:Key="Blue.BackgroundBrush" Color="{StaticResource Blue.Background}"/>
+    <SolidColorBrush x:Key="Blue.ForegroundBrush" Color="{StaticResource Blue.Foreground}"/>
+    <SolidColorBrush x:Key="Blue.BorderBrush" Color="{StaticResource Blue.Border}"/>
+    <SolidColorBrush x:Key="Blue.AccentBrush" Color="{StaticResource Blue.Accent}"/>
+    <SolidColorBrush x:Key="Blue.SuccessBrush" Color="{StaticResource Blue.Success}"/>
+    <SolidColorBrush x:Key="Blue.WarningBrush" Color="{StaticResource Blue.Warning}"/>
+    <SolidColorBrush x:Key="Blue.ErrorBrush" Color="{StaticResource Blue.Error}"/>
+
+    <!-- 绿色主题画刷 -->
+    <SolidColorBrush x:Key="Green.PrimaryBrush" Color="{StaticResource Green.Primary}"/>
+    <SolidColorBrush x:Key="Green.SecondaryBrush" Color="{StaticResource Green.Secondary}"/>
+    <SolidColorBrush x:Key="Green.BackgroundBrush" Color="{StaticResource Green.Background}"/>
+    <SolidColorBrush x:Key="Green.ForegroundBrush" Color="{StaticResource Green.Foreground}"/>
+    <SolidColorBrush x:Key="Green.BorderBrush" Color="{StaticResource Green.Border}"/>
+    <SolidColorBrush x:Key="Green.AccentBrush" Color="{StaticResource Green.Accent}"/>
+    <SolidColorBrush x:Key="Green.SuccessBrush" Color="{StaticResource Green.Success}"/>
+    <SolidColorBrush x:Key="Green.WarningBrush" Color="{StaticResource Green.Warning}"/>
+    <SolidColorBrush x:Key="Green.ErrorBrush" Color="{StaticResource Green.Error}"/>
+
+    <!-- 红色主题画刷 -->
+    <SolidColorBrush x:Key="Red.PrimaryBrush" Color="{StaticResource Red.Primary}"/>
+    <SolidColorBrush x:Key="Red.SecondaryBrush" Color="{StaticResource Red.Secondary}"/>
+    <SolidColorBrush x:Key="Red.BackgroundBrush" Color="{StaticResource Red.Background}"/>
+    <SolidColorBrush x:Key="Red.ForegroundBrush" Color="{StaticResource Red.Foreground}"/>
+    <SolidColorBrush x:Key="Red.BorderBrush" Color="{StaticResource Red.Border}"/>
+    <SolidColorBrush x:Key="Red.AccentBrush" Color="{StaticResource Red.Accent}"/>
+    <SolidColorBrush x:Key="Red.SuccessBrush" Color="{StaticResource Red.Success}"/>
+    <SolidColorBrush x:Key="Red.WarningBrush" Color="{StaticResource Red.Warning}"/>
+    <SolidColorBrush x:Key="Red.ErrorBrush" Color="{StaticResource Red.Error}"/>
+
+    <!-- 深色主题画刷 -->
+    <SolidColorBrush x:Key="Dark.PrimaryBrush" Color="{StaticResource Dark.Primary}"/>
+    <SolidColorBrush x:Key="Dark.SecondaryBrush" Color="{StaticResource Dark.Secondary}"/>
+    <SolidColorBrush x:Key="Dark.BackgroundBrush" Color="{StaticResource Dark.Background}"/>
+    <SolidColorBrush x:Key="Dark.ForegroundBrush" Color="{StaticResource Dark.Foreground}"/>
+    <SolidColorBrush x:Key="Dark.BorderBrush" Color="{StaticResource Dark.Border}"/>
+    <SolidColorBrush x:Key="Dark.AccentBrush" Color="{StaticResource Dark.Accent}"/>
+    <SolidColorBrush x:Key="Dark.SuccessBrush" Color="{StaticResource Dark.Success}"/>
+    <SolidColorBrush x:Key="Dark.WarningBrush" Color="{StaticResource Dark.Warning}"/>
+    <SolidColorBrush x:Key="Dark.ErrorBrush" Color="{StaticResource Dark.Error}"/>
+
+    <!-- 通用画刷 -->
+    <SolidColorBrush x:Key="BlackBrush" Color="{StaticResource Black}"/>
+    <SolidColorBrush x:Key="WhiteBrush" Color="{StaticResource White}"/>
+    <SolidColorBrush x:Key="TransparentBrush" Color="{StaticResource Transparent}"/>
+    <SolidColorBrush x:Key="LightGrayBrush" Color="{StaticResource LightGray}"/>
+    <SolidColorBrush x:Key="GrayBrush" Color="{StaticResource Gray}"/>
+    <SolidColorBrush x:Key="DarkGrayBrush" Color="{StaticResource DarkGray}"/>
+</ResourceDictionary> 
