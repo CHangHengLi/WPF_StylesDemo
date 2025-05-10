@@ -1,6 +1,7 @@
 # WPF样式详解示例程序
 
 这是一个基于.NET Core 8.0的WPF MVVM模式示例程序，专注于展示WPF样式系统的功能和用法。
+![image](https://github.com/user-attachments/assets/c58f7fc9-13ea-43ec-9997-6cec0339a46b)
 
 ## 项目结构
 
