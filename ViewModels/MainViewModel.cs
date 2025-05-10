@@ -71,6 +71,33 @@ namespace WPF_StylesDemo.ViewModels
                     Status = "Success",
                     CreatedAt = DateTime.Now,
                     IsActive = true
+                },
+                new StyleItem
+                {
+                    Id = 5,
+                    Name = "事件触发器与动画",
+                    Description = "演示事件触发器和WPF动画效果",
+                    Status = "Success",
+                    CreatedAt = DateTime.Now,
+                    IsActive = true
+                },
+                new StyleItem
+                {
+                    Id = 6,
+                    Name = "控件模板",
+                    Description = "演示WPF控件模板的使用方法",
+                    Status = "Success",
+                    CreatedAt = DateTime.Now,
+                    IsActive = true
+                },
+                new StyleItem
+                {
+                    Id = 7,
+                    Name = "多层次样式继承",
+                    Description = "演示多层次样式继承关系",
+                    Status = "Warning",
+                    CreatedAt = DateTime.Now,
+                    IsActive = true
                 }
             };
 

@@ -8,4 +8,22 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Styles\Brushes.xaml" />
+    <None Remove="Styles\Buttons.xaml" />
+    <None Remove="Styles\TextBlocks.xaml" />
+    <None Remove="Styles\TextBoxes.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Styles\TextBlocks.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Styles\TextBoxes.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
 </Project>

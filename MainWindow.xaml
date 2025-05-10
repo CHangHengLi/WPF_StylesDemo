@@ -10,6 +10,7 @@
         mc:Ignorable="d"
         Title="WPF样式详解示例" 
         Height="750" Width="1200"
+        MinWidth="900" MinHeight="600"
         WindowStartupLocation="CenterScreen"
         Background="{DynamicResource WindowBackgroundBrush}"
         Foreground="{DynamicResource WindowForegroundBrush}">

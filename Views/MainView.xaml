@@ -16,6 +16,7 @@
         <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <converters:BooleanToInverseVisibilityConverter x:Key="BooleanToInverseVisibilityConverter"/>
         <converters:BooleanToYesNoConverter x:Key="BooleanToYesNoConverter"/>
+        <converters:StringEqualityToVisibilityConverter x:Key="StringEqualityToVisibilityConverter"/>
     </UserControl.Resources>
     
     <Grid Background="{DynamicResource WindowBackgroundBrush}">
@@ -66,7 +67,7 @@
         <!-- 主内容区域 -->
         <Grid Grid.Row="1" Background="{DynamicResource WindowBackgroundBrush}">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="300"/>
+                <ColumnDefinition Width="350"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             
@@ -99,18 +100,26 @@
                               ItemsSource="{Binding Items}" 
                               SelectedItem="{Binding SelectedItem}"
                               BorderThickness="0"
-                              Background="{DynamicResource WindowBackgroundBrush}">
+                              Background="{DynamicResource WindowBackgroundBrush}"
+                              ScrollViewer.VerticalScrollBarVisibility="Auto"
+                              ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                              VirtualizingPanel.IsVirtualizing="True"
+                              VirtualizingPanel.VirtualizationMode="Recycling"
+                              HorizontalContentAlignment="Stretch"
+                              SelectionMode="Single">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <Border Padding="8" 
                                         BorderThickness="0,0,0,1" 
                                         BorderBrush="{DynamicResource BorderBrush}"
-                                        Background="{DynamicResource WindowBackgroundBrush}">
+                                        Background="{DynamicResource WindowBackgroundBrush}"
+                                        HorizontalAlignment="Stretch"
+                                        Width="Auto">
                                     <StackPanel>
                                         <Grid>
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="Auto" MinWidth="70"/>
                                             </Grid.ColumnDefinitions>
                                             <TextBlock Grid.Column="0" 
                                                        Text="{Binding Name}" 
@@ -119,22 +128,26 @@
                                             <TextBlock Grid.Column="1" 
                                                        Text="{Binding Status}" 
                                                        Style="{StaticResource StatusTextBlockStyle}"
-                                                       Margin="10,0,0,0"/>
+                                                       Margin="10,0,0,0"
+                                                       HorizontalAlignment="Right"/>
                                         </Grid>
                                         <TextBlock Text="{Binding Description}" 
                                                    Style="{StaticResource BodyTextBlockStyle}"/>
                                         <Grid>
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="Auto" MinWidth="70"/>
                                             </Grid.ColumnDefinitions>
                                             <TextBlock Grid.Column="0"
                                                        Text="{Binding CreatedAt, StringFormat=创建于: {0:yyyy-MM-dd HH:mm}}" 
                                                        Style="{StaticResource CaptionTextBlockStyle}"
-                                                       Margin="0,5,0,0"/>
+                                                       Margin="0,5,0,0"
+                                                       TextTrimming="CharacterEllipsis"/>
                                             <TextBlock Grid.Column="1"
                                                        Text="{Binding IsActive, Converter={StaticResource BooleanToYesNoConverter}}" 
-                                                       Margin="10,5,0,0">
+                                                       Margin="10,5,0,0"
+                                                       HorizontalAlignment="Right"
+                                                       TextAlignment="Right">
                                                 <TextBlock.Style>
                                                     <Style TargetType="TextBlock" BasedOn="{StaticResource CaptionTextBlockStyle}">
                                                         <Style.Triggers>
@@ -212,68 +225,226 @@
                         <!-- 详情内容/编辑表单 -->
                         <Grid Grid.Row="1" Background="{DynamicResource WindowBackgroundBrush}">
                             <!-- 展示模式 -->
-                            <StackPanel Visibility="{Binding IsEditing, Converter={StaticResource BooleanToInverseVisibilityConverter}}"
-                                        Background="{DynamicResource WindowBackgroundBrush}">
-                                <TextBlock Text="描述:" 
-                                           Style="{StaticResource SubHeaderTextBlockStyle}"/>
-                                <TextBlock Text="{Binding SelectedItem.Description}" 
-                                           Style="{StaticResource BodyTextBlockStyle}"
-                                           Margin="0,0,0,10"/>
-                                
-                                <TextBlock Text="状态:" 
-                                           Style="{StaticResource SubHeaderTextBlockStyle}"/>
-                                <TextBlock Text="{Binding SelectedItem.Status}" 
-                                           Style="{StaticResource StatusTextBlockStyle}"
-                                           Margin="0,0,0,10"/>
-                                
-                                <TextBlock Text="是否激活:" 
-                                           Style="{StaticResource SubHeaderTextBlockStyle}"/>
-                                <TextBlock Text="{Binding SelectedItem.IsActive, Converter={StaticResource BooleanToYesNoConverter}}" 
-                                           Style="{StaticResource BodyTextBlockStyle}"/>
-                            </StackPanel>
+                            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                <StackPanel Visibility="{Binding IsEditing, Converter={StaticResource BooleanToInverseVisibilityConverter}}"
+                                            Background="{DynamicResource WindowBackgroundBrush}">
+                                    <TextBlock Text="描述:" 
+                                               Style="{StaticResource SubHeaderTextBlockStyle}"/>
+                                    <TextBlock Text="{Binding SelectedItem.Description}" 
+                                               Style="{StaticResource BodyTextBlockStyle}"
+                                               Margin="0,0,0,10"/>
+                                    
+                                    <TextBlock Text="状态:" 
+                                               Style="{StaticResource SubHeaderTextBlockStyle}"/>
+                                    <TextBlock Text="{Binding SelectedItem.Status}" 
+                                               Style="{StaticResource StatusTextBlockStyle}"
+                                               Margin="0,0,0,10"/>
+                                    
+                                    <TextBlock Text="是否激活:" 
+                                               Style="{StaticResource SubHeaderTextBlockStyle}"/>
+                                    <TextBlock Text="{Binding SelectedItem.IsActive, Converter={StaticResource BooleanToYesNoConverter}}" 
+                                               Style="{StaticResource BodyTextBlockStyle}"
+                                               Margin="0,0,0,20"/>
+                                    
+                                    <!-- 样式演示区域 -->
+                                    <TextBlock Text="样式演示:" 
+                                               Style="{StaticResource SubHeaderTextBlockStyle}"/>
+                                    
+                                    <!-- 多层次样式继承演示 -->
+                                    <Border BorderThickness="1" BorderBrush="{DynamicResource BorderBrush}" 
+                                            Margin="0,10,0,20" Padding="10"
+                                            Visibility="{Binding SelectedItem.Name, ConverterParameter='多层次样式继承', Converter={StaticResource StringEqualityToVisibilityConverter}}">
+                                        <StackPanel>
+                                            <TextBlock Text="多层次样式继承关系演示：" Style="{StaticResource BodyTextBlockStyle}" Margin="0,0,0,10"/>
+                                            <TextBlock Text="样式以层次结构方式继承，形成从基础到具体的树状结构：" Style="{StaticResource CaptionTextBlockStyle}" Margin="0,0,0,10" TextWrapping="Wrap"/>
+                                            <StackPanel Orientation="Vertical">
+                                                <Button Content="基础按钮样式" Style="{StaticResource BaseButtonStyle2}" Margin="5"/>
+                                                <TextBlock Text="↓ 第二层继承（外观定义）" Margin="5" HorizontalAlignment="Center"/>
+                                                <Button Content="轮廓按钮样式" Style="{StaticResource OutlinedButtonStyle}" Margin="5"/>
+                                                <TextBlock Text="↓ 第三层继承（具体用途样式）" Margin="5" HorizontalAlignment="Center"/>
+                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                                    <Button Content="主色调按钮" Style="{StaticResource PrimaryOutlinedButtonStyle}" Margin="5"/>
+                                                    <Button Content="成功按钮" Style="{StaticResource SuccessOutlinedButtonStyle}" Margin="5"/>
+                                                    <Button Content="危险按钮" Style="{StaticResource DangerOutlinedButtonStyle}" Margin="5"/>
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </Border>
+                                    
+                                    <!-- 事件触发器与动画演示 -->
+                                    <Border BorderThickness="1" BorderBrush="{DynamicResource BorderBrush}" 
+                                            Margin="0,10,0,20" Padding="10"
+                                            Visibility="{Binding SelectedItem.Name, ConverterParameter='事件触发器与动画', Converter={StaticResource StringEqualityToVisibilityConverter}}">
+                                        <StackPanel>
+                                            <TextBlock Text="鼠标悬停在按钮上查看动画效果：" Style="{StaticResource BodyTextBlockStyle}" Margin="0,0,0,10"/>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Button Content="悬停变大按钮" Style="{StaticResource AnimatedButtonStyle}" Margin="5"/>
+                                                <Button Content="点击脉冲按钮" Style="{StaticResource PulseButtonStyle}" Margin="5"/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </Border>
+                                    
+                                    <!-- 控件模板演示 -->
+                                    <Border BorderThickness="1" BorderBrush="{DynamicResource BorderBrush}" 
+                                            Margin="0,10,0,20" Padding="10"
+                                            Visibility="{Binding SelectedItem.Name, ConverterParameter='控件模板', Converter={StaticResource StringEqualityToVisibilityConverter}}">
+                                        <StackPanel>
+                                            <TextBlock Text="自定义控件模板演示：" Style="{StaticResource BodyTextBlockStyle}" Margin="0,0,0,10"/>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Button Content="圆角按钮" Style="{StaticResource RoundedButtonStyle}" Margin="5"/>
+                                                <Button Style="{StaticResource IconButtonStyle}" Margin="5">
+                                                    <Button.Content>
+                                                        <TextBlock Text="⚙" FontSize="16"/>
+                                                    </Button.Content>
+                                                </Button>
+                                            </StackPanel>
+                                            <TextBlock Text="自定义文本框模板：" Style="{StaticResource BodyTextBlockStyle}" Margin="0,20,0,10"/>
+                                            <TextBox Style="{StaticResource SearchTextBoxStyle}" Width="250" Margin="0,0,0,10"/>
+                                            <TextBox Style="{StaticResource MultilineTextBoxStyle}" Width="250" Height="100" Text="这是一个多行文本框示例。&#x0a;支持换行显示。"/>
+                                        </StackPanel>
+                                    </Border>
+                                    
+                                    <!-- 动态资源演示 -->
+                                    <Border BorderThickness="1" BorderBrush="{DynamicResource BorderBrush}" 
+                                            Margin="0,10,0,20" Padding="10"
+                                            Visibility="{Binding SelectedItem.Name, ConverterParameter='动态资源', Converter={StaticResource StringEqualityToVisibilityConverter}}">
+                                        <StackPanel>
+                                            <TextBlock Text="动态资源演示（切换主题查看效果）：" Style="{StaticResource BodyTextBlockStyle}" Margin="0,0,0,10"/>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Button Content="使用动态资源" Style="{StaticResource DefaultButtonStyle}" Margin="5"/>
+                                                <TextBlock Text="动态资源文本" Style="{StaticResource HighlightTextBlockStyle}" VerticalAlignment="Center" Margin="5"/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </Border>
+                                    
+                                    <!-- 基本按钮样式演示 -->
+                                    <Border BorderThickness="1" BorderBrush="{DynamicResource BorderBrush}" 
+                                            Margin="0,10,0,20" Padding="10"
+                                            Visibility="{Binding SelectedItem.Name, ConverterParameter='基本按钮样式', Converter={StaticResource StringEqualityToVisibilityConverter}}">
+                                        <StackPanel>
+                                            <TextBlock Text="基本按钮样式演示：" Style="{StaticResource BodyTextBlockStyle}" Margin="0,0,0,10"/>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Button Content="默认样式" Style="{StaticResource DefaultButtonStyle}" Margin="5"/>
+                                                <Button Content="成功按钮" Style="{StaticResource SuccessButtonStyle}" Margin="5"/>
+                                                <Button Content="危险按钮" Style="{StaticResource DangerButtonStyle}" Margin="5"/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </Border>
+                                    
+                                    <!-- 触发器样式演示 -->
+                                    <Border BorderThickness="1" BorderBrush="{DynamicResource BorderBrush}" 
+                                            Margin="0,10,0,20" Padding="10"
+                                            Visibility="{Binding SelectedItem.Name, ConverterParameter='触发器样式', Converter={StaticResource StringEqualityToVisibilityConverter}}">
+                                        <StackPanel>
+                                            <TextBlock Text="不同触发器演示：" Style="{StaticResource BodyTextBlockStyle}" Margin="0,0,0,10"/>
+                                            <StackPanel>
+                                                <TextBlock Text="属性触发器 - 鼠标悬停/禁用：" Style="{StaticResource CaptionTextBlockStyle}" Margin="0,0,0,5"/>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <Button Content="悬停触发" Style="{StaticResource DefaultButtonStyle}" Margin="5"/>
+                                                    <Button Content="禁用状态" Style="{StaticResource DefaultButtonStyle}" IsEnabled="False" Margin="5"/>
+                                                </StackPanel>
+                                                
+                                                <TextBlock Text="数据触发器 - 根据状态改变文字颜色：" Style="{StaticResource CaptionTextBlockStyle}" Margin="0,10,0,5"/>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="Success" Style="{StaticResource StatusTextBlockStyle}" Margin="5"/>
+                                                    <TextBlock Text="Warning" Style="{StaticResource StatusTextBlockStyle}" Margin="5"/>
+                                                    <TextBlock Text="Error" Style="{StaticResource StatusTextBlockStyle}" Margin="5"/>
+                                                </StackPanel>
+                                                
+                                                <TextBlock Text="事件触发器动画：" Style="{StaticResource CaptionTextBlockStyle}" Margin="0,10,0,5"/>
+                                                <TextBlock Text="鼠标悬停在下方框内查看颜色渐变效果" Style="{StaticResource CaptionTextBlockStyle}" Margin="5"/>
+                                                <Border Margin="5" Padding="10" BorderThickness="1" BorderBrush="{DynamicResource BorderBrush}">
+                                                    <!-- 简单的事件触发器演示 -->
+                                                    <TextBlock x:Name="multiTriggerText" 
+                                                               Text="事件触发器示例" 
+                                                               Margin="5" 
+                                                               FontSize="14"
+                                                               FontWeight="SemiBold">
+                                                        <TextBlock.Foreground>
+                                                            <SolidColorBrush Color="#1976D2"/>
+                                                        </TextBlock.Foreground>
+                                                    </TextBlock>
+                                                    
+                                                    <!-- Border只支持EventTrigger -->
+                                                    <Border.Triggers>
+                                                        <EventTrigger RoutedEvent="Border.MouseEnter">
+                                                            <EventTrigger.Actions>
+                                                                <BeginStoryboard>
+                                                                    <Storyboard>
+                                                                        <ColorAnimation 
+                                                                            Storyboard.TargetName="multiTriggerText" 
+                                                                            Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" 
+                                                                            To="#2E7D32" 
+                                                                            Duration="0:0:0.3"/>
+                                                                    </Storyboard>
+                                                                </BeginStoryboard>
+                                                            </EventTrigger.Actions>
+                                                        </EventTrigger>
+                                                        <EventTrigger RoutedEvent="Border.MouseLeave">
+                                                            <EventTrigger.Actions>
+                                                                <BeginStoryboard>
+                                                                    <Storyboard>
+                                                                        <ColorAnimation 
+                                                                            Storyboard.TargetName="multiTriggerText" 
+                                                                            Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" 
+                                                                            To="#1976D2"
+                                                                            Duration="0:0:0.3"/>
+                                                                    </Storyboard>
+                                                                </BeginStoryboard>
+                                                            </EventTrigger.Actions>
+                                                        </EventTrigger>
+                                                    </Border.Triggers>
+                                                </Border>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </Border>
+                                </StackPanel>
+                            </ScrollViewer>
                             
                             <!-- 编辑模式 -->
-                            <StackPanel Visibility="{Binding IsEditing, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                        Background="{DynamicResource WindowBackgroundBrush}">
-                                <TextBlock Text="名称:" 
-                                           Style="{StaticResource SubHeaderTextBlockStyle}"/>
-                                <TextBox Text="{Binding SelectedItem.Name, UpdateSourceTrigger=PropertyChanged}" 
-                                         Margin="0,0,0,10"
-                                         Padding="8,5"
-                                         BorderThickness="1"
-                                         BorderBrush="{DynamicResource BorderBrush}"/>
-                                
-                                <TextBlock Text="描述:" 
-                                           Style="{StaticResource SubHeaderTextBlockStyle}"/>
-                                <TextBox Text="{Binding SelectedItem.Description, UpdateSourceTrigger=PropertyChanged}" 
-                                         Margin="0,0,0,10"
-                                         Padding="8,5"
-                                         Height="80"
-                                         TextWrapping="Wrap"
-                                         AcceptsReturn="True"
-                                         BorderThickness="1"
-                                         BorderBrush="{DynamicResource BorderBrush}"/>
-                                
-                                <TextBlock Text="状态:" 
-                                           Style="{StaticResource SubHeaderTextBlockStyle}"/>
-                                <ComboBox Text="{Binding SelectedItem.Status}" 
-                                          Margin="0,0,0,10"
-                                          Padding="8,5"
-                                          BorderThickness="1"
-                                          BorderBrush="{DynamicResource BorderBrush}"
-                                          IsEditable="True"
-                                          IsReadOnly="True">
-                                    <ComboBoxItem>Success</ComboBoxItem>
-                                    <ComboBoxItem>Warning</ComboBoxItem>
-                                    <ComboBoxItem>Error</ComboBoxItem>
-                                </ComboBox>
-                                
-                                <TextBlock Text="是否激活:" 
-                                           Style="{StaticResource SubHeaderTextBlockStyle}"/>
-                                <CheckBox IsChecked="{Binding SelectedItem.IsActive}"
-                                          Margin="0,5,0,10"
-                                          Content="激活"/>
-                            </StackPanel>
+                            <ScrollViewer VerticalScrollBarVisibility="Auto" 
+                                          Visibility="{Binding IsEditing, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                <StackPanel Background="{DynamicResource WindowBackgroundBrush}">
+                                    <TextBlock Text="名称:" 
+                                               Style="{StaticResource SubHeaderTextBlockStyle}"/>
+                                    <TextBox Text="{Binding SelectedItem.Name, UpdateSourceTrigger=PropertyChanged}" 
+                                             Margin="0,0,0,10"
+                                             Padding="8,5"
+                                             BorderThickness="1"
+                                             BorderBrush="{DynamicResource BorderBrush}"/>
+                                    
+                                    <TextBlock Text="描述:" 
+                                               Style="{StaticResource SubHeaderTextBlockStyle}"/>
+                                    <TextBox Text="{Binding SelectedItem.Description, UpdateSourceTrigger=PropertyChanged}" 
+                                             Margin="0,0,0,10"
+                                             Padding="8,5"
+                                             Height="80"
+                                             TextWrapping="Wrap"
+                                             AcceptsReturn="True"
+                                             BorderThickness="1"
+                                             BorderBrush="{DynamicResource BorderBrush}"/>
+                                    
+                                    <TextBlock Text="状态:" 
+                                               Style="{StaticResource SubHeaderTextBlockStyle}"/>
+                                    <ComboBox Text="{Binding SelectedItem.Status}" 
+                                              Margin="0,0,0,10"
+                                              Padding="8,5"
+                                              BorderThickness="1"
+                                              BorderBrush="{DynamicResource BorderBrush}"
+                                              IsEditable="True"
+                                              IsReadOnly="True">
+                                        <ComboBoxItem>Success</ComboBoxItem>
+                                        <ComboBoxItem>Warning</ComboBoxItem>
+                                        <ComboBoxItem>Error</ComboBoxItem>
+                                    </ComboBox>
+                                    
+                                    <TextBlock Text="是否激活:" 
+                                               Style="{StaticResource SubHeaderTextBlockStyle}"/>
+                                    <CheckBox IsChecked="{Binding SelectedItem.IsActive}"
+                                              Margin="0,5,0,10"
+                                              Content="激活"/>
+                                </StackPanel>
+                            </ScrollViewer>
                         </Grid>
                         
                         <!-- 详情底部按钮 -->
